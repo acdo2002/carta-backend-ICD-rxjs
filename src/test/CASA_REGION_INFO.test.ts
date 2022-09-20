@@ -138,6 +138,9 @@ describe("CASA_REGION_INFO: Testing CASA region list and info", () => {
             let fileListResponse = await msgController.getFileList("$BASE",0);
             basepath = fileListResponse.directory;
             assertItem.openFile.directory = basepath + "/" + assertItem.openFile.directory;
+            assertItem.regionListRequest.directory = basepath + "/" + assertItem.regionListRequest.directory;
+            assertItem.regionFileInfoRequest[0].directory = basepath + "/" + assertItem.regionFileInfoRequest[0].directory;
+            assertItem.regionFileInfoRequest[1].directory = basepath + "/" + assertItem.regionFileInfoRequest[1].directory;
         });
 
         describe(`Go to "${testSubdirectory}" folder and open image "${assertItem.openFile.file}"`, () => {
@@ -159,7 +162,7 @@ describe("CASA_REGION_INFO: Testing CASA region list and info", () => {
                 });
     
                 test(`REGION_LIST_RESPONSE.directory = ${assertItem.regionListResponse.directory}`, () => {
-                    expect(regionListResponse.directory).toEqual(assertItem.regionListResponse.directory);
+                    expect(regionListResponse.directory).toContain(assertItem.regionListResponse.directory);
                 });
     
                 test(`REGION_LIST_RESPONSE.parent is /${assertItem.regionListResponse.parent}`, () => {
