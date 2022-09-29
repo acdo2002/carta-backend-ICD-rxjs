@@ -228,12 +228,9 @@ export class MessageController {
         }
     }
 
-    // sendPing = () => {
-    //     if (this.connection && this.connectionStatus === ConnectionStatus.ACTIVE) {
-    //         this.lastPingTime = performance.now();
-    //         this.connection.send("PING");
-    //     }
-    // };
+    checkConnectionStatus = () => {
+        return this.connectionStatus;
+    }
 
     @action updateEndToEndPing = () => {
         this.endToEndPing = this.lastPongTime - this.lastPingTime;
