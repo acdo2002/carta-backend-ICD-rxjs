@@ -17,6 +17,8 @@ interface AssertItem {
     setCursor: CARTA.ISetCursor;
     fittingRequest: CARTA.IFittingRequest[];
     fittingResponse: CARTA.IFittingResponse[];
+    iterationNumber1: string;
+    iterationNumber2: string;
     precisionDigits: number;
 };
 
@@ -106,6 +108,8 @@ let assertItem: AssertItem = {
         }
     ],
     precisionDigits: 2,
+    iterationNumber1: 'number of iterations = 68',
+    iterationNumber2: 'number of iterations = 116' 
 };
 
 let basepath: string;
@@ -159,6 +163,7 @@ describe("IMAGE_FITTING_CASA test: Testing Image Fitting (with and without fov) 
                     expect(response.resultErrors[0].fwhm.y).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].fwhm.y, assertItem.precisionDigits);
                     expect(response.resultErrors[0].pa).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].pa, assertItem.precisionDigits);
                     expect(response.log).toContain(assertItem.fittingResponse[0].log);
+                    expect(response.log).toContain(assertItem.iterationNumber1);
                 },imageFittingTimeout)
             })
 
@@ -180,6 +185,7 @@ describe("IMAGE_FITTING_CASA test: Testing Image Fitting (with and without fov) 
                     expect(response.resultErrors[0].fwhm.y).toBeCloseTo(assertItem.fittingResponse[1].resultErrors[0].fwhm.y, assertItem.precisionDigits);
                     expect(response.resultErrors[0].pa).toBeCloseTo(assertItem.fittingResponse[1].resultErrors[0].pa, assertItem.precisionDigits);
                     expect(response.log).toContain(assertItem.fittingResponse[1].log);
+                    expect(response.log).toContain(assertItem.iterationNumber2);
                 },imageFittingTimeout)
             })
         });
