@@ -81,7 +81,7 @@ describe("MOMENTS_GENERATOR_CANCEL: Testing to cancel a moment generator for an 
                         next: (data) => {
                             count++;
                             momentProgressArray.push(data);
-                            if (data.progress > 0.5 && count == 5) {
+                            if (count == 5) {
                                 msgController.cancelRequestingMoment(setFileId);
                                 resolve(momentProgressArray)
                             }
