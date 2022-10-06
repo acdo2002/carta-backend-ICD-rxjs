@@ -109,7 +109,7 @@ describe("Testing CLOSE_FILE with large-size image and test CLOSE_FILE during th
             let BackendStatus = await msgController.getFileList(assertItem.filelist.directory, assertItem.filelist.filterMode);
             expect(BackendStatus).toBeDefined();
             expect(BackendStatus.success).toBe(true);
-            expect(BackendStatus.directory).toBe(assertItem.filelist.directory);
+            expect(BackendStatus.directory).toContain("set_QA");
         });
 
         afterAll(() => msgController.closeConnection());

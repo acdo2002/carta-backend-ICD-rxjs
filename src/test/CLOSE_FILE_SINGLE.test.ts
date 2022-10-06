@@ -96,7 +96,7 @@ describe("Test for Close single file:", () => {
             let BackendStatus = await msgController.getFileList(assertItem.filelist.directory, assertItem.filelist.filterMode);
             expect(BackendStatus).toBeDefined();
             expect(BackendStatus.success).toBe(true);
-            expect(BackendStatus.directory).toBe(assertItem.filelist.directory);
+            expect(BackendStatus.directory).toContain("set_QA");
         });
 
         afterAll(() => msgController.closeConnection());
