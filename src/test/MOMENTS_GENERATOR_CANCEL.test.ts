@@ -75,7 +75,6 @@ describe("MOMENTS_GENERATOR_CANCEL: Testing to cancel a moment generator for an 
             let momentResponse : any;
             let count = 0;
             test(`Request a moment progress but cancel after receiving 5 MomentProgress`, async () => {
-                await sleep(200);
                 let momentProgressPromise = new Promise((resolve)=>{
                     msgController.momentProgressStream.subscribe({
                         next: (data) => {
@@ -125,7 +124,6 @@ describe("MOMENTS_GENERATOR_CANCEL: Testing to cancel a moment generator for an 
         describe(`Moment generator`, () => {
             let momentResponse : any;
             test(`Receive a series of moment progress`, async () => {
-                await sleep(5000);
                 momentResponse = await msgController.requestMoment({
                     ...assertItem.momentRequest,
                     moments: [12],
