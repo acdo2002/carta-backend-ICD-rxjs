@@ -191,7 +191,7 @@ describe("PV_GENERATOR_FITS:Testing PV generator with fits file.", () => {
                 let regionHistogramDataResponse = await regionHistogramDataPromise;
                 expect(PVresponse.success).toBe(true);
                 expect(regionHistogramDataResponse.length).toBe(1);
-            }, 10000);
+            }, PVTimeout);
 
             test(`(Step 7 & 8): request 2 tiles after PV response`, async()=>{
                 msgController.setCursor(assertItem.setCursor[1].fileId, assertItem.setCursor[1].point.x, assertItem.setCursor[1].point.y);
