@@ -121,7 +121,7 @@ describe("MOMENTS_GENERATOR_FITS: Testing moments generator for a given region o
                 let SetRegionAck = await msgController.setRegion(assertItem.setRegion.fileId, assertItem.setRegion.regionId, assertItem.setRegion.regionInfo)
                 msgController.setSpectralRequirements(assertItem.setSpectralRequirements);
                 let spectralProfileDataResponse = await Stream(CARTA.SpectralProfileData, 1);
-            }, regionTimeout);
+            }, regionTimeout * 10);
         });
 
         let FileId: number[] = [];
