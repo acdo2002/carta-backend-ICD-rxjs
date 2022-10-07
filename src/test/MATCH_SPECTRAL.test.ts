@@ -236,7 +236,7 @@ describe("MATCH_SPECTRAL: Test region spectral profile with spatially and spectr
                     let SpectralProfileDataResponse = await Stream(CARTA.SpectralProfileData);
                     SpectralProfileData.push(SpectralProfileDataResponse[0]);                    
                 }
-            }, profileTimeout);
+            }, profileTimeout * 3);
     
             test(`Assert all region_id`, () => {
                 for (const [index, spectralRequirement] of assertItem.setSpectralRequirements.entries()) {
