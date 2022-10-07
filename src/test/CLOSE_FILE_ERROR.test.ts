@@ -112,7 +112,7 @@ describe("[Case 1] Test for requesting the ICD message of the CLOSED image:", ()
             let BackendStatus = await msgController.getFileList(assertItem.filelist.directory, assertItem.filelist.filterMode);
             expect(BackendStatus).toBeDefined();
             expect(BackendStatus.success).toBe(true);
-            expect(BackendStatus.directory).toBe(assertItem.filelist.directory);
+            expect(BackendStatus.directory).toContain("set_QA");
         });
 
         test(`(Step 4) Test fileId = 0 is still working well: `, async () => {
