@@ -359,17 +359,7 @@ export class MessageController {
         if (this.connectionStatus !== ConnectionStatus.ACTIVE) {
             throw new Error("Not connected");
         } else {
-            let tt2 = new Map<number, CARTA.IRegionStyle>().set(1, {name: "", color: "#2EE6D6", lineWidth: 2, dashList: []})
-            // console.log(tt2);
-            // console.log(regionStyles);
-            // console.log(directory, file, type, fileId, mapToObject(regionStyles), coordType)
-            // const message = CARTA.ExportRegion.create({directory, file, type, fileId, regionStyles: mapToObject(tt2), coordType});
-            let directory = 'Users/ming-yi/carta-test-img/set_QA';
-            let file = 't4';
-            let type = 1;
-            let fileId = 0;
-            let coordType = 1;
-            const message = CARTA.ExportRegion.create({directory, file, type, fileId, regionStyles: mapToObject(tt2), coordType});
+            const message = CARTA.ExportRegion.create({directory, file, type, fileId, regionStyles: mapToObject(regionStyles), coordType});
             const requestId = this.eventCounter;
             this.logEvent(CARTA.EventType.EXPORT_REGION, requestId, message, false);
             if (this.sendEvent(CARTA.EventType.EXPORT_REGION, CARTA.ExportRegion.encode(message).finish())) {
