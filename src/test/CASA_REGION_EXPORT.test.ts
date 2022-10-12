@@ -6,6 +6,7 @@ import config from "./config.json";
 let testServerUrl = config.serverURL0;
 let testSubdirectory = config.path.QA;
 let regionSubdirectory = config.path.region;
+let saveSubdirectory = config.path.save;
 let connectTimeout = config.timeout.connection;
 let importTimeout = config.timeout.import;
 let exportTimeout = config.timeout.export;
@@ -309,7 +310,7 @@ describe("CASA_REGION_EXPORT test: Testing export of CASA region to a file", () 
             });
 
             assertItem.exportRegionAck.map((exRegion, idxRegion) => {
-                describe(`Export "${assertItem.exportRegion[idxRegion].file}"`, () => {
+                describe(`Export "${assertItem.exportRegion[idxRegion].file}" to ${saveSubdirectory}`, () => {
                     let exportRegionAck: any;
                     test(`EXPORT_REGION_ACK should return within ${importTimeout}ms`, async () => {
                         let regionStyle = new Map<number, CARTA.IRegionStyle>().set(1, { name: "", color: "#2EE6D6", lineWidth: 2, dashList: [] });
@@ -329,7 +330,7 @@ describe("CASA_REGION_EXPORT test: Testing export of CASA region to a file", () 
                         regionStyle.set(15, { name: "", color: "#2EE6D6", lineWidth: 2, dashList: [] });
                         regionStyle.set(16, { name: "", color: "#2EE6D6", lineWidth: 2, dashList: [] });
 
-                        assertItem.exportRegion[idxRegion].directory = basepath + "/" + regionSubdirectory; 
+                        assertItem.exportRegion[idxRegion].directory = saveSubdirectory; 
                         exportRegionAck = await msgController.exportRegion(assertItem.exportRegion[idxRegion].directory, assertItem.exportRegion[idxRegion].file, assertItem.exportRegion[idxRegion].type, assertItem.exportRegion[idxRegion].coordType, assertItem.exportRegion[idxRegion].fileId, regionStyle);
                     }, exportTimeout);
     
@@ -344,11 +345,11 @@ describe("CASA_REGION_EXPORT test: Testing export of CASA region to a file", () 
             });
 
             assertItem.importRegionAck.map((Region, idxRegion) => {
-                describe(`Import "${assertItem.importRegion[idxRegion].file}"`, () => {
+                describe(`Import "${assertItem.importRegion[idxRegion].file}" from ${saveSubdirectory}`, () => {
                     let importRegionAck: any;
                     let importRegionAckProperties: any;
                     test(`IMPORT_REGION_ACK should return within ${importTimeout}ms`, async () => {
-                        assertItem.importRegion[idxRegion].directory = basepath + "/" + regionSubdirectory; 
+                        assertItem.importRegion[idxRegion].directory = saveSubdirectory; 
                         importRegionAck = await msgController.importRegion(assertItem.importRegion[idxRegion].directory, assertItem.importRegion[idxRegion].file, assertItem.importRegion[idxRegion].type, assertItem.importRegion[idxRegion].groupId)
                         importRegionAckProperties = Object.keys(importRegionAck.regions)
                     }, importTimeout);
