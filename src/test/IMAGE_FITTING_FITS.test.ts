@@ -17,8 +17,6 @@ interface AssertItem {
     setCursor: CARTA.ISetCursor;
     fittingRequest: CARTA.IFittingRequest[];
     fittingResponse: CARTA.IFittingResponse[];
-    iterationNumber1: string;
-    iterationNumber2: string;
     precisionDigits: number;
 };
 
@@ -48,14 +46,14 @@ let assertItem: AssertItem = {
     fittingRequest: [
         {
             fileId: 0,
-            fixedParams: [],
+            fixedParams: [false, false, false, false, false, false],
             fovInfo: null,
             regionId: -1, 
             initialValues: [{amp: 10, center: {x: 320, y: 400}, fwhm: {x: 100, y: 50}, pa: 135}]
         },
         {
             fileId: 0,
-            fixedParams: [],
+            fixedParams: [false, false, false, false, false, false],
             fovInfo: {
                 controlPoints: [{x:319.5, y:399.5}, {x: 216.70644391408112, y: 199.99999999999997}],
                 regionType: 3,
@@ -108,8 +106,6 @@ let assertItem: AssertItem = {
         }
     ],
     precisionDigits: 2,
-    iterationNumber1: 'number of iterations = 68',
-    iterationNumber2: 'number of iterations = 116' 
 };
 
 let basepath: string;
@@ -163,7 +159,6 @@ describe("IMAGE_FITTING_FITS test: Testing Image Fitting (with and without fov) 
                     expect(response.resultErrors[0].fwhm.y).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].fwhm.y, assertItem.precisionDigits);
                     expect(response.resultErrors[0].pa).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].pa, assertItem.precisionDigits);
                     expect(response.log).toContain(assertItem.fittingResponse[0].log);
-                    expect(response.log).toContain(assertItem.iterationNumber1);
                 },imageFittingTimeout)
             })
 
@@ -185,7 +180,6 @@ describe("IMAGE_FITTING_FITS test: Testing Image Fitting (with and without fov) 
                     expect(response.resultErrors[0].fwhm.y).toBeCloseTo(assertItem.fittingResponse[1].resultErrors[0].fwhm.y, assertItem.precisionDigits);
                     expect(response.resultErrors[0].pa).toBeCloseTo(assertItem.fittingResponse[1].resultErrors[0].pa, assertItem.precisionDigits);
                     expect(response.log).toContain(assertItem.fittingResponse[1].log);
-                    expect(response.log).toContain(assertItem.iterationNumber2);
                 },imageFittingTimeout)
             })
         });
