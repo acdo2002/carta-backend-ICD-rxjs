@@ -51,7 +51,7 @@ let assertItem: AssertItem = {
     fittingRequest: [
         {
             fileId: 0,
-            fixedParams: [false, false, false, false, false, false],
+            fixedParams: [false, false, false, false, false, false, false, false, false, false, false, false],
             fovInfo: null,
             regionId: -1, 
             initialValues: [
