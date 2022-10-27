@@ -66,6 +66,7 @@ export class MessageController {
     public sessionId: number;
     public serverFeatureFlags: number;
     public serverUrl: string;
+    public count: number;
 
     private connection: WebSocket;
     private lastPingTime: number;
@@ -90,6 +91,7 @@ export class MessageController {
     private readonly decoderMap: Map<CARTA.EventType, {messageClass: any; handler: HandlerFunction}>;
 
     private constructor() {
+        this.count = 0;
         makeObservable(this);
         this.loggingEnabled = true;
         this.deferredMap = new Map<number, Deferred<IBackendResponse>>();
@@ -164,13 +166,10 @@ export class MessageController {
 
         const isReconnection: boolean = url === this.serverUrl;
         let connectionAttempts = 0;
-        // const apiService = ApiService.Instance;
         this.connectionDropped = false;
         this.connectionStatus = ConnectionStatus.PENDING;
         this.serverUrl = url;
         this.connection = new WebSocket(url);
-        // this.connection = new WebSocket(apiService.accessToken ? url + `?token=${apiService.accessToken}` : url);
-        // console.log(apiService.accessToken ? url + `?token=${apiService.accessToken}` : url);
         this.connection.binaryType = "arraybuffer";
         this.connection.onmessage = this.messageHandler.bind(this);
         this.connection.onclose = (ev: CloseEvent) =>
@@ -229,12 +228,9 @@ export class MessageController {
         }
     }
 
-    // sendPing = () => {
-    //     if (this.connection && this.connectionStatus === ConnectionStatus.ACTIVE) {
-    //         this.lastPingTime = performance.now();
-    //         this.connection.send("PING");
-    //     }
-    // };
+    checkConnectionStatus = () => {
+        return this.connectionStatus;
+    }
 
     @action updateEndToEndPing = () => {
         this.endToEndPing = this.lastPongTime - this.lastPingTime;
@@ -381,7 +377,7 @@ export class MessageController {
         let file = input.file;
         let hdu = input.hdu;
         let fileId = input.fileId;
-        let imageArithmetic = input.lelExpr;
+        let imageArithmetic = input.lelExpr
         if (this.connectionStatus !== ConnectionStatus.ACTIVE) {
             throw new Error("Not connected");
         } else {
@@ -971,8 +967,10 @@ export class MessageController {
         if (this.loggingEnabled) {
             if (incoming) {
                 if (eventId === 0) {
+                    this.messageReceiving(true);
                     // console.log(`<== ${eventName} [Stream]`);
                 } else {
+                    this.messageReceiving(true);
                     // console.log(`<== ${eventName} [${eventId}]`);
                 }
             } else {
@@ -980,6 +978,15 @@ export class MessageController {
             }
             // console.log(message);
             // console.log("\n");
+        }
+    }
+
+    public messageReceiving(set?: boolean): number {
+        if (set) {
+            this.count = this.count + 1;
+            return this.count;
+        } else {
+            return this.count;
         }
     }
 }

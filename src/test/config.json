@@ -1,5 +1,4 @@
 {
-    "serverURL": "wss://carta.asiaa.sinica.edu.tw/socketdev",
     "serverURL0": "ws://127.0.0.1:3002",	
     "path": {
         "root": ".",
@@ -34,7 +33,7 @@
         "messageEvent": 500,
         "mouseEvent": 1000,
         "cursor": 500,
-        "region": 500,
+        "region": 5000,
         "import": 500,
         "export": 500,
         "resume": 3000,
