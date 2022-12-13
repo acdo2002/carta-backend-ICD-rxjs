@@ -94,6 +94,62 @@ let assertItem: AssertItem = {
             threshold: NaN,
             uError: undefined
         },
+        {
+            compressionQuality: 8,
+            compressionType: CARTA.CompressionType.NONE,
+            debiasing: false,
+            fileId: 0,
+            fractional: false,
+            imageBounds: { xMin: 0, xMax: 1049, yMin: 0, yMax: 1049},
+            qError: undefined,
+            smoothingFactor: 4,
+            stokesAngle: 1,
+            stokesIntensity: 1,
+            threshold: 0.01,
+            uError: undefined
+        },
+        {
+            compressionQuality: 8,
+            compressionType: CARTA.CompressionType.NONE,
+            debiasing: true,
+            fileId: 0,
+            fractional: false,
+            imageBounds: { xMin: 0, xMax: 1049, yMin: 0, yMax: 1049},
+            qError: 0.01,
+            smoothingFactor: 2,
+            stokesAngle: 1,
+            stokesIntensity: 1,
+            threshold: 0.01,
+            uError: 0.01
+        },
+        {
+            compressionQuality: 8,
+            compressionType: CARTA.CompressionType.NONE,
+            debiasing: false,
+            fileId: 0,
+            fractional: false,
+            imageBounds: { xMin: 0, xMax: 1049, yMin: 0, yMax: 1049},
+            qError: undefined,
+            smoothingFactor: 4,
+            stokesAngle: 1,
+            stokesIntensity: -1,
+            threshold: NaN,
+            uError: undefined
+        },
+        {
+            compressionQuality: 8,
+            compressionType: CARTA.CompressionType.NONE,
+            debiasing: false,
+            fileId: 0,
+            fractional: false,
+            imageBounds: { xMin: 0, xMax: 1049, yMin: 0, yMax: 1049},
+            qError: undefined,
+            smoothingFactor: 4,
+            stokesAngle: -1,
+            stokesIntensity: 1,
+            threshold: NaN,
+            uError: undefined
+        },
     ],
     VectorOverlayTileData: [
         {
@@ -151,7 +207,125 @@ let assertItem: AssertItem = {
             selectedAngleImageDataValue: [0, 192, 0, 127, 192],
             selectedIntensityImageDataIndex: [0,50, 100, 143, 190],
             selectedIntensityImageDataValue: [0, 192, 0, 127, 192],
-        }
+        },
+        {
+            progress: 1, 
+            stokesAngle: 1,
+            stokesIntensity: 1,
+            compressionQuality: 8,
+            totalAngleImageDataLength: 196,
+            angleTiles: [{
+                height: 7,
+                layer: 1,
+                mip: 4,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            totalIntensityImageDataLength: 196,
+            intensityTiles: [{
+                height: 7,
+                layer: 1,
+                mip: 4,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            selectedAngleImageDataIndex: [0,50, 100, 143, 190],
+            selectedAngleImageDataValue: [0, 192, 0, 127, 192],
+            selectedIntensityImageDataIndex: [0,50, 100, 143, 190],
+            selectedIntensityImageDataValue: [0, 192, 0, 127, 192],
+        },
+        {
+            progress: 1, 
+            stokesAngle: 1,
+            stokesIntensity: 1,
+            compressionQuality: 8,
+            totalAngleImageDataLength: 196,
+            angleTiles: [{
+                height: 7,
+                layer: 1,
+                mip: 4,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            totalIntensityImageDataLength: 196,
+            intensityTiles: [{
+                height: 7,
+                layer: 1,
+                mip: 4,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            selectedAngleImageDataIndex: [0,50, 100, 143, 190],
+            selectedAngleImageDataValue: [0, 192, 0, 127, 192],
+            selectedIntensityImageDataIndex: [0,50, 100, 143, 190],
+            selectedIntensityImageDataValue: [0, 192, 0, 127, 192],
+        },
+        {
+            progress: 1, 
+            stokesAngle: 1,
+            stokesIntensity: 1,
+            compressionQuality: 8,
+            totalAngleImageDataLength: 676,
+            angleTiles: [{
+                height: 13,
+                layer: 2,
+                mip: 2,
+                width: 13,
+                x: 2,
+                y: 2
+            }],
+            totalIntensityImageDataLength: 676,
+            intensityTiles: [{
+                height: 13,
+                layer: 2,
+                mip: 2,
+                width: 13,
+                x: 2,
+                y: 2
+            }],
+            selectedAngleImageDataIndex: [2,200, 402, 600, 671],
+            selectedAngleImageDataValue: [192, 0, 192, 0, 127],
+            selectedIntensityImageDataIndex: [2,200, 402, 600, 671],
+            selectedIntensityImageDataValue: [192, 0, 192, 0, 127],
+        },
+        {
+            progress: 1, 
+            stokesAngle: 1,
+            stokesIntensity: -1,
+            compressionQuality: 8,
+            totalAngleImageDataLength: 196,
+            angleTiles: [{
+                height: 7,
+                layer: 1,
+                mip: 4,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            selectedAngleImageDataIndex: [0,50, 100, 143, 190],
+            selectedAngleImageDataValue: [0, 192, 0, 127, 192],
+        },
+        {
+            progress: 1, 
+            stokesAngle: -1,
+            stokesIntensity: 1,
+            compressionQuality: 8,
+            totalIntensityImageDataLength: 196,
+            intensityTiles: [{
+                height: 7,
+                layer: 1,
+                mip: 4,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            selectedIntensityImageDataIndex: [0,50, 100, 143, 190],
+            selectedIntensityImageDataValue: [0, 192, 0, 127, 192],
+        },
     ]
 };
 
@@ -325,6 +499,255 @@ describe("PV_GENERATOR_FITS:Testing PV generator with fits file.", () => {
 
                 VectorOverlayTileDataResponse = await VectorOverlayTileDataPromise;
             }, vectorOverlayTimeout);
+
+            test(`(Step 2) Verify the Response (the last VECTOR_OVERLAY_TILE_DATA) correctness`, ()=>{
+                let lastVectorOverlayTileDataResponse = VectorOverlayTileDataResponse.slice(-1)[0];
+                expect(lastVectorOverlayTileDataResponse.progress).toEqual(assertItem.VectorOverlayTileData[2].progress);
+                expect(lastVectorOverlayTileDataResponse.stokesAngle).toEqual(assertItem.VectorOverlayTileData[2].stokesAngle);
+                expect(lastVectorOverlayTileDataResponse.stokesIntensity).toEqual(assertItem.VectorOverlayTileData[2].stokesIntensity);
+                expect(lastVectorOverlayTileDataResponse.compressionQuality).toEqual(assertItem.VectorOverlayTileData[2].compressionQuality);
+                
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].height).toEqual(assertItem.VectorOverlayTileData[2].angleTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[2].angleTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].width).toEqual(assertItem.VectorOverlayTileData[2].angleTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].x).toEqual(assertItem.VectorOverlayTileData[2].angleTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[2].totalAngleImageDataLength);
+                assertItem.VectorOverlayTileData[2].selectedAngleImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[2].selectedAngleImageDataValue[index])
+                });
+
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].height).toEqual(assertItem.VectorOverlayTileData[2].intensityTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].layer).toEqual(assertItem.VectorOverlayTileData[2].intensityTiles[0].layer);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[2].intensityTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].width).toEqual(assertItem.VectorOverlayTileData[2].intensityTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].x).toEqual(assertItem.VectorOverlayTileData[2].intensityTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[2].totalIntensityImageDataLength);
+                assertItem.VectorOverlayTileData[1].selectedIntensityImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[2].selectedIntensityImageDataValue[index])
+                });
+            });
+
+            test(`(Step 3) Clear Vector Overlay ICD`, done =>{
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[1]);
+                let receiveNumberCurrent = msgController.messageReceiving();
+                setTimeout(() => {
+                    let receiveNumberLatter = msgController.messageReceiving();
+                    expect(receiveNumberCurrent).toEqual(receiveNumberLatter); //Have received number is equal during 1000 ms
+                    done();
+                }, 500)
+            });
+        });
+
+        describe(`(Case 4) With smoothing of 4, polarization intensity of absolute, and threshold of 0.01:`, ()=>{
+            let VectorOverlayTileDataArray = [];
+            let VectorOverlayTileDataResponse: any;
+            test(`(Step 1) Request and Response should arrived within ${vectorOverlayTimeout} ms`, async() => {
+                await sleep(500);
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[4]);
+                let VectorOverlayTileDataPromise = new Promise((resolve)=>{
+                    msgController.vectorTileStream.subscribe({
+                        next: (data) => {
+                            VectorOverlayTileDataArray.push(data)
+                            if (data.progress === 1) {
+                                resolve(VectorOverlayTileDataArray)
+                            }
+                        }
+                    });
+                });
+
+                VectorOverlayTileDataResponse = await VectorOverlayTileDataPromise;
+            }, vectorOverlayTimeout);
+
+            test(`(Step 2) Verify the Response (the last VECTOR_OVERLAY_TILE_DATA) correctness`, ()=>{
+                let lastVectorOverlayTileDataResponse = VectorOverlayTileDataResponse.slice(-1)[0];
+                expect(lastVectorOverlayTileDataResponse.progress).toEqual(assertItem.VectorOverlayTileData[3].progress);
+                expect(lastVectorOverlayTileDataResponse.stokesAngle).toEqual(assertItem.VectorOverlayTileData[3].stokesAngle);
+                expect(lastVectorOverlayTileDataResponse.stokesIntensity).toEqual(assertItem.VectorOverlayTileData[3].stokesIntensity);
+                expect(lastVectorOverlayTileDataResponse.compressionQuality).toEqual(assertItem.VectorOverlayTileData[3].compressionQuality);
+                
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].height).toEqual(assertItem.VectorOverlayTileData[3].angleTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[3].angleTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].width).toEqual(assertItem.VectorOverlayTileData[3].angleTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].x).toEqual(assertItem.VectorOverlayTileData[3].angleTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[3].totalAngleImageDataLength);
+                assertItem.VectorOverlayTileData[3].selectedAngleImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[3].selectedAngleImageDataValue[index])
+                });
+
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].height).toEqual(assertItem.VectorOverlayTileData[3].intensityTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].layer).toEqual(assertItem.VectorOverlayTileData[3].intensityTiles[0].layer);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[3].intensityTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].width).toEqual(assertItem.VectorOverlayTileData[3].intensityTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].x).toEqual(assertItem.VectorOverlayTileData[3].intensityTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[3].totalIntensityImageDataLength);
+                assertItem.VectorOverlayTileData[1].selectedIntensityImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[3].selectedIntensityImageDataValue[index])
+                });
+            });
+
+            test(`(Step 3) Clear Vector Overlay ICD`, done =>{
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[1]);
+                let receiveNumberCurrent = msgController.messageReceiving();
+                setTimeout(() => {
+                    let receiveNumberLatter = msgController.messageReceiving();
+                    expect(receiveNumberCurrent).toEqual(receiveNumberLatter); //Have received number is equal during 1000 ms
+                    done();
+                }, 500)
+            });
+        });
+
+        describe(`(Case 5) With smoothing of 2, polarization intensity of absolute, threshold of 0.01 and stoke Q error of 0.01 and stoke U error of 0.01:`, () => {
+            let VectorOverlayTileDataArray = [];
+            let VectorOverlayTileDataResponse: any;
+            test(`(Step 1) Request and Response should arrived within ${vectorOverlayTimeout} ms`, async() => {
+                await sleep(500);
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[5]);
+                let VectorOverlayTileDataPromise = new Promise((resolve)=>{
+                    msgController.vectorTileStream.subscribe({
+                        next: (data) => {
+                            VectorOverlayTileDataArray.push(data)
+                            if (data.progress === 1) {
+                                resolve(VectorOverlayTileDataArray)
+                            }
+                        }
+                    });
+                });
+                VectorOverlayTileDataResponse = await VectorOverlayTileDataPromise;
+            }, vectorOverlayTimeout);
+
+            test(`(Step 2) Verify the Response (the last VECTOR_OVERLAY_TILE_DATA) correctness`, ()=>{
+                let lastVectorOverlayTileDataResponse = VectorOverlayTileDataResponse.slice(-1)[0];
+                expect(lastVectorOverlayTileDataResponse.progress).toEqual(assertItem.VectorOverlayTileData[4].progress);
+                expect(lastVectorOverlayTileDataResponse.stokesAngle).toEqual(assertItem.VectorOverlayTileData[4].stokesAngle);
+                expect(lastVectorOverlayTileDataResponse.stokesIntensity).toEqual(assertItem.VectorOverlayTileData[4].stokesIntensity);
+                expect(lastVectorOverlayTileDataResponse.compressionQuality).toEqual(assertItem.VectorOverlayTileData[4].compressionQuality);
+                
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].height).toEqual(assertItem.VectorOverlayTileData[4].angleTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[4].angleTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].width).toEqual(assertItem.VectorOverlayTileData[4].angleTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].x).toEqual(assertItem.VectorOverlayTileData[4].angleTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[4].totalAngleImageDataLength);
+                assertItem.VectorOverlayTileData[4].selectedAngleImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[4].selectedAngleImageDataValue[index])
+                });
+
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].height).toEqual(assertItem.VectorOverlayTileData[4].intensityTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].layer).toEqual(assertItem.VectorOverlayTileData[4].intensityTiles[0].layer);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[4].intensityTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].width).toEqual(assertItem.VectorOverlayTileData[4].intensityTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].x).toEqual(assertItem.VectorOverlayTileData[4].intensityTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[4].totalIntensityImageDataLength);
+                assertItem.VectorOverlayTileData[4].selectedIntensityImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[4].selectedIntensityImageDataValue[index])
+                });
+            });
+
+            test(`(Step 3) Clear Vector Overlay ICD`, done =>{
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[1]);
+                let receiveNumberCurrent = msgController.messageReceiving();
+                setTimeout(() => {
+                    let receiveNumberLatter = msgController.messageReceiving();
+                    expect(receiveNumberCurrent).toEqual(receiveNumberLatter); //Have received number is equal during 1000 ms
+                    done();
+                }, 500)
+            });
+        });
+
+        describe(`(Case 6) Only computed PA with smoothing of 4:`, () => {
+            let VectorOverlayTileDataArray = [];
+            let VectorOverlayTileDataResponse: any;
+            test(`(Step 1) Request and Response should arrived within ${vectorOverlayTimeout} ms`, async() => {
+                await sleep(500);
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[6]);
+                let VectorOverlayTileDataPromise = new Promise((resolve)=>{
+                    msgController.vectorTileStream.subscribe({
+                        next: (data) => {
+                            VectorOverlayTileDataArray.push(data)
+                            if (data.progress === 1) {
+                                resolve(VectorOverlayTileDataArray)
+                            }
+                        }
+                    });
+                });
+                VectorOverlayTileDataResponse = await VectorOverlayTileDataPromise;
+            }, vectorOverlayTimeout);
+
+            test(`(Step 2) Verify the Response (the last VECTOR_OVERLAY_TILE_DATA) correctness`, ()=>{
+                let lastVectorOverlayTileDataResponse = VectorOverlayTileDataResponse.slice(-1)[0];
+                expect(lastVectorOverlayTileDataResponse.progress).toEqual(assertItem.VectorOverlayTileData[5].progress);
+                expect(lastVectorOverlayTileDataResponse.stokesAngle).toEqual(assertItem.VectorOverlayTileData[5].stokesAngle);
+                expect(lastVectorOverlayTileDataResponse.stokesIntensity).toEqual(assertItem.VectorOverlayTileData[5].stokesIntensity);
+                expect(lastVectorOverlayTileDataResponse.compressionQuality).toEqual(assertItem.VectorOverlayTileData[5].compressionQuality);
+                
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].height).toEqual(assertItem.VectorOverlayTileData[5].angleTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[5].angleTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].width).toEqual(assertItem.VectorOverlayTileData[5].angleTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].x).toEqual(assertItem.VectorOverlayTileData[5].angleTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[5].totalAngleImageDataLength);
+                assertItem.VectorOverlayTileData[5].selectedAngleImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[5].selectedAngleImageDataValue[index])
+                });
+
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0]).toEqual({});
+            });
+
+            test(`(Step 3) Clear Vector Overlay ICD`, done =>{
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[1]);
+                let receiveNumberCurrent = msgController.messageReceiving();
+                setTimeout(() => {
+                    let receiveNumberLatter = msgController.messageReceiving();
+                    expect(receiveNumberCurrent).toEqual(receiveNumberLatter); //Have received number is equal during 1000 ms
+                    done();
+                }, 500)
+            });
+        });
+
+        describe(`(Case 7) Only computed PI with smoothing of 4:`, ()=>{
+            let VectorOverlayTileDataArray = [];
+            let VectorOverlayTileDataResponse: any;
+            test(`(Step 1) Request and Response should arrived within ${vectorOverlayTimeout} ms`, async() => {
+                await sleep(500);
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[7]);
+                let VectorOverlayTileDataPromise = new Promise((resolve)=>{
+                    msgController.vectorTileStream.subscribe({
+                        next: (data) => {
+                            VectorOverlayTileDataArray.push(data)
+                            if (data.progress === 1) {
+                                resolve(VectorOverlayTileDataArray)
+                            }
+                        }
+                    });
+                });
+                VectorOverlayTileDataResponse = await VectorOverlayTileDataPromise;
+            }, vectorOverlayTimeout);
+
+            test(`(Step 2) Verify the Response (the last VECTOR_OVERLAY_TILE_DATA) correctness`, ()=>{
+                let lastVectorOverlayTileDataResponse = VectorOverlayTileDataResponse.slice(-1)[0];
+                expect(lastVectorOverlayTileDataResponse.progress).toEqual(assertItem.VectorOverlayTileData[6].progress);
+                expect(lastVectorOverlayTileDataResponse.stokesAngle).toEqual(assertItem.VectorOverlayTileData[6].stokesAngle);
+                expect(lastVectorOverlayTileDataResponse.stokesIntensity).toEqual(assertItem.VectorOverlayTileData[6].stokesIntensity);
+                expect(lastVectorOverlayTileDataResponse.compressionQuality).toEqual(assertItem.VectorOverlayTileData[6].compressionQuality);
+
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].height).toEqual(assertItem.VectorOverlayTileData[6].intensityTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].layer).toEqual(assertItem.VectorOverlayTileData[6].intensityTiles[0].layer);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[6].intensityTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].width).toEqual(assertItem.VectorOverlayTileData[6].intensityTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].x).toEqual(assertItem.VectorOverlayTileData[6].intensityTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[6].totalIntensityImageDataLength);
+                assertItem.VectorOverlayTileData[6].selectedIntensityImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[6].selectedIntensityImageDataValue[index])
+                });
+            });
+
+            test(`(Step 3) Clear Vector Overlay ICD`, done =>{
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[1]);
+                let receiveNumberCurrent = msgController.messageReceiving();
+                setTimeout(() => {
+                    let receiveNumberLatter = msgController.messageReceiving();
+                    expect(receiveNumberCurrent).toEqual(receiveNumberLatter); //Have received number is equal during 1000 ms
+                    done();
+                }, 500)
+            });
         });
 
         afterAll(() => msgController.closeConnection());
