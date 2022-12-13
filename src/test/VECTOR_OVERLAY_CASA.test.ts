@@ -35,7 +35,7 @@ let assertItem: AssertItem = {
     filelist: { directory: testSubdirectory },
     openFile: {
         directory: testSubdirectory,
-        file: "HH211_IQU.fits",
+        file: "HH211_IQU.image",
         hdu: "",
         fileId: 0,
         renderMode: CARTA.RenderMode.RASTER,
@@ -334,7 +334,7 @@ function sleep(ms) {
 }
 
 let basepath: string;
-describe("VECTOR_OVERLAY_FITS: Testing the vector overlay ICD messages with the polarization fits image", () => {
+describe("VECTOR_OVERLAY_CASA: Testing the vector overlay ICD messages with the polarization casa image", () => {
     const msgController = MessageController.Instance;
     describe(`Register a session`, () => {
         beforeAll(async ()=> {

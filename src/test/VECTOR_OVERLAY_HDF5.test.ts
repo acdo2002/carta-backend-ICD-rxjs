@@ -35,8 +35,8 @@ let assertItem: AssertItem = {
     filelist: { directory: testSubdirectory },
     openFile: {
         directory: testSubdirectory,
-        file: "HH211_IQU.fits",
-        hdu: "",
+        file: "HH211_IQU.hdf5",
+        hdu: "0",
         fileId: 0,
         renderMode: CARTA.RenderMode.RASTER,
     },
@@ -334,7 +334,7 @@ function sleep(ms) {
 }
 
 let basepath: string;
-describe("VECTOR_OVERLAY_FITS: Testing the vector overlay ICD messages with the polarization fits image", () => {
+describe("VECTOR_OVERLAY_HDF5: Testing the vector overlay ICD messages with the polarization hdf5 image", () => {
     const msgController = MessageController.Instance;
     describe(`Register a session`, () => {
         beforeAll(async ()=> {
