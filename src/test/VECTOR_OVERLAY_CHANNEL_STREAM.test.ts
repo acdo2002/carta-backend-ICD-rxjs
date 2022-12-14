@@ -19,6 +19,11 @@ interface IVectorOverlayTileDataExt extends CARTA.IVectorOverlayTileData {
     selectedIntensityImageDataValue?: Number[];
 }
 
+interface IRegionHistogramDataExt extends CARTA.IRegionHistogramData {
+    selectBinIndex?: Number[];
+    selectBinValue?: Number[];
+}
+
 interface AssertItem {
     registerViewer: CARTA.IRegisterViewer;
     filelist: CARTA.IFileListRequest;
@@ -27,6 +32,8 @@ interface AssertItem {
     setVectorOverlayParameters: CARTA.ISetVectorOverlayParameters[];
     VectorOverlayTileData : IVectorOverlayTileDataExt[];
     setImageChannel: CARTA.ISetImageChannels[];
+    regionHistogramData: IRegionHistogramDataExt;
+    precisionDigits: number;
 };
 
 let assertItem: AssertItem = {
@@ -93,6 +100,35 @@ let assertItem: AssertItem = {
             selectedIntensityImageDataIndex: [0,50, 100, 143, 190],
             selectedIntensityImageDataValue: [0, 192, 0, 127, 192],
         }, 
+        {
+            progress: 1, 
+            stokesAngle: 1,
+            stokesIntensity: 1,
+            compressionQuality: 8,
+            channel: 1,
+            totalAngleImageDataLength: 196,
+            angleTiles: [{
+                height: 7,
+                mip: 4,
+                layer: 1,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            totalIntensityImageDataLength: 196,
+            intensityTiles: [{
+                height: 7,
+                layer: 1,
+                mip: 4,
+                width: 7,
+                x: 1,
+                y: 1
+            }],
+            selectedAngleImageDataIndex: [0,50, 100, 143, 190],
+            selectedAngleImageDataValue: [0, 192, 0, 127, 192],
+            selectedIntensityImageDataIndex: [0,50, 100, 143, 190],
+            selectedIntensityImageDataValue: [0, 192, 0, 127, 192],
+        }, 
     ],
     setImageChannel: [
         {
@@ -107,6 +143,19 @@ let assertItem: AssertItem = {
             },
         },
     ],
+    regionHistogramData: {
+        channel:1,
+        histograms: {
+            binWidth: 0.0000605975255894009,
+            firstBinCenter: -0.027060849592089653,
+            mean: 0.000027204052476844467,
+            numBins: 1049,
+            stdDev: 0.0028536340154345988
+        },
+        selectBinIndex:[0, 100, 500, 700, 1000],
+        selectBinValue:[0, 100, 500, 700, 1000],
+    },
+    precisionDigits: 4,
 };
 
 function sleep(ms) {
@@ -194,7 +243,9 @@ describe("VECTOR_OVERLAY_CHANNEL_STREAM: Testing the vector overlay ICD messages
             let VectorOverlayTileDataArrayChannel1 = [];
             let VectorOverlayTileDataResponseChannel1: any;
             let RegionHistogramData: any;
-            test(`(Step 4) Set Image Channel to 1 and Receive the three type ICD messages:`, async ()=> {
+            let RasterTileDataChannel1: any;
+            let RasterTileDataSyncChannel1: any;
+            test(`(Step 3) Set Image Channel to 1 and Receive the three type ICD messages:`, async ()=> {
                 msgController.setChannels(assertItem.setImageChannel[0]);
                 let VectorOverlayTileDataPromiseChannel1 = new Promise((resolve)=>{
                     msgController.vectorTileStream.subscribe({
@@ -235,8 +286,48 @@ describe("VECTOR_OVERLAY_CHANNEL_STREAM: Testing the vector overlay ICD messages
                 VectorOverlayTileDataResponseChannel1 = await VectorOverlayTileDataPromiseChannel1;
                 RegionHistogramData = await Stream(CARTA.RegionHistogramData, 1);
         
-                let RasterTileDataChannel1: any = await RasterTileDataPromise;
-                let RasterTileDataSyncChannel1 = await RasterTileDataSyncPromise;
+                RasterTileDataChannel1 = await RasterTileDataPromise;
+                RasterTileDataSyncChannel1 = await RasterTileDataSyncPromise;
+                // console.log(RasterTileDataChannel1.length);
+                // console.log(RasterTileDataSyncChannel1);
+            });
+
+            test(`(Step 4: Verify the Response (the last VECTOR_OVERLAY_TILE_DATA of channel 1) correctness)`, () => {
+                let lastVectorOverlayTileDataResponse = VectorOverlayTileDataResponseChannel1.slice(-1)[0];
+                expect(lastVectorOverlayTileDataResponse.progress).toEqual(assertItem.VectorOverlayTileData[1].progress);
+                expect(lastVectorOverlayTileDataResponse.stokesAngle).toEqual(assertItem.VectorOverlayTileData[1].stokesAngle);
+                expect(lastVectorOverlayTileDataResponse.stokesIntensity).toEqual(assertItem.VectorOverlayTileData[1].stokesIntensity);
+                expect(lastVectorOverlayTileDataResponse.compressionQuality).toEqual(assertItem.VectorOverlayTileData[1].compressionQuality);
+                expect(lastVectorOverlayTileDataResponse.channel).toEqual(assertItem.VectorOverlayTileData[1].channel);
+
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].height).toEqual(assertItem.VectorOverlayTileData[1].angleTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[1].angleTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].layer).toEqual(assertItem.VectorOverlayTileData[1].angleTiles[0].layer);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].width).toEqual(assertItem.VectorOverlayTileData[1].angleTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].x).toEqual(assertItem.VectorOverlayTileData[1].angleTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[1].totalAngleImageDataLength);
+                assertItem.VectorOverlayTileData[0].selectedAngleImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.angleTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[1].selectedAngleImageDataValue[index])
+                });
+
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].height).toEqual(assertItem.VectorOverlayTileData[1].intensityTiles[0].height);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].layer).toEqual(assertItem.VectorOverlayTileData[1].intensityTiles[0].layer);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].mip).toEqual(assertItem.VectorOverlayTileData[1].intensityTiles[0].mip);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].width).toEqual(assertItem.VectorOverlayTileData[1].intensityTiles[0].width);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].x).toEqual(assertItem.VectorOverlayTileData[1].intensityTiles[0].x);
+                expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData.length).toEqual(assertItem.VectorOverlayTileData[1].totalIntensityImageDataLength);
+                assertItem.VectorOverlayTileData[0].selectedIntensityImageDataIndex.map((data, index) => {
+                    expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[1].selectedIntensityImageDataValue[index])
+                });
+            })
+
+            test(`(Step 5) Verify the Response (REGION_HISTOGRAM_DATA and RASTER_TILE) correctness`, () => {
+                expect(RegionHistogramData[0].channel).toEqual(assertItem.regionHistogramData.channel);
+                expect(RegionHistogramData[0].histograms.binWidth).toBeCloseTo(assertItem.regionHistogramData.histograms.binWidth, assertItem.precisionDigits);
+                expect(RegionHistogramData[0].histograms.firstBinCenter).toBeCloseTo(assertItem.regionHistogramData.histograms.firstBinCenter, assertItem.precisionDigits);
+                expect(RegionHistogramData[0].histograms.mean).toBeCloseTo(assertItem.regionHistogramData.histograms.mean, assertItem.precisionDigits);
+                expect(RegionHistogramData[0].histograms.numBins).toEqual(assertItem.regionHistogramData.histograms.numBins);
+
                 console.log(RasterTileDataChannel1.length);
                 console.log(RasterTileDataSyncChannel1);
             });
