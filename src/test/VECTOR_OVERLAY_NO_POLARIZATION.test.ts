@@ -102,7 +102,7 @@ function sleep(ms) {
 }
 
 let basepath: string;
-describe("VVECTOR_OVERLAY_NO_POLARIZATION: Testing the vector overlay ICD messages with the NONE polarization fits image", () => {
+describe("VECTOR_OVERLAY_NO_POLARIZATION: Testing the vector overlay ICD messages with the NONE polarization fits image", () => {
     const msgController = MessageController.Instance;
     describe(`Register a session`, () => {
         beforeAll(async ()=> {
@@ -132,7 +132,7 @@ describe("VVECTOR_OVERLAY_NO_POLARIZATION: Testing the vector overlay ICD messag
             }, openFileTimeout);
         });
 
-        describe(`(Case 1) Only polarization intensity of Absolute:`, ()=>{
+        describe(`Request Vector Overlay ICD messages with NONE polarization fits image (${assertItem.openFile.file})`, ()=>{
             let VectorOverlayTileDataArray = [];
             let VectorOverlayTileDataResponse: any;
             test(`(Step 1) Request and Response should arrived within ${vectorOverlayTimeout} ms`, async() => {
