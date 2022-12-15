@@ -2,7 +2,6 @@ import { CARTA } from "carta-protobuf";
 import { checkConnection, Stream} from './myClient';
 import { MessageController } from "./MessageController";
 import config from "./config.json";
-import { take } from 'rxjs/operators';
 
 let testServerUrl: string = config.serverURL0;
 let testSubdirectory: string = config.path.QA;
@@ -157,10 +156,6 @@ let assertItem: AssertItem = {
     },
     precisionDigits: 4,
 };
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms)).then(() => {});
-}
 
 let basepath: string;
 describe("VECTOR_OVERLAY_CHANNEL_STREAM: Testing the vector overlay ICD messages with the channel stream", () => {
@@ -321,26 +316,22 @@ describe("VECTOR_OVERLAY_CHANNEL_STREAM: Testing the vector overlay ICD messages
                 });
             })
 
-            test(`(Step 5) Verify the Response (REGION_HISTOGRAM_DATA and RASTER_TILE) correctness`, () => {
+            test(`(Step 5) Verify the Response (REGION_HISTOGRAM_DATA, RASTER_TILE, and RASTER_TILE_SYNC) correctness`, () => {
                 expect(RegionHistogramData[0].channel).toEqual(assertItem.regionHistogramData.channel);
                 expect(RegionHistogramData[0].histograms.binWidth).toBeCloseTo(assertItem.regionHistogramData.histograms.binWidth, assertItem.precisionDigits);
                 expect(RegionHistogramData[0].histograms.firstBinCenter).toBeCloseTo(assertItem.regionHistogramData.histograms.firstBinCenter, assertItem.precisionDigits);
                 expect(RegionHistogramData[0].histograms.mean).toBeCloseTo(assertItem.regionHistogramData.histograms.mean, assertItem.precisionDigits);
                 expect(RegionHistogramData[0].histograms.numBins).toEqual(assertItem.regionHistogramData.histograms.numBins);
 
-                console.log(RasterTileDataChannel1.length);
-                console.log(RasterTileDataSyncChannel1);
+                RasterTileDataChannel1.map((data) => {
+                    expect(data.channel).toEqual(assertItem.setImageChannel[0].channel);
+                });
+                expect(RasterTileDataChannel1.length).toEqual(assertItem.setImageChannel[0].requiredTiles.tiles.length);
+                RasterTileDataSyncChannel1.map((data) => {
+                    expect(data.channel).toEqual(assertItem.setImageChannel[0].channel);
+                })
+                expect(RasterTileDataSyncChannel1[1].endSync).toEqual(true);
             });
-
-            // test(`(Step 3) Clear Vector Overlay ICD`, done =>{
-            //     msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[1]);
-            //     let receiveNumberCurrent = msgController.messageReceiving();
-            //     setTimeout(() => {
-            //         let receiveNumberLatter = msgController.messageReceiving();
-            //         expect(receiveNumberCurrent).toEqual(receiveNumberLatter); //Have received number is equal during 1000 ms
-            //         done();
-            //     }, 500)
-            // });
         });
 
         afterAll(() => msgController.closeConnection());
