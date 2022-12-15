@@ -50,7 +50,8 @@
         "concatStokes": 3000,
         "openLargeFiles": 60000,
         "pvRequest": 60000,
-        "imageFitting": 60000
+        "imageFitting": 60000,
+        "vectorOverlay": 6000
     },
     "repeat": {
         "concurrent": 10,
