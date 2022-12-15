@@ -80,6 +80,11 @@ let assertItem: AssertItem = {
             threshold: NaN,
             uError: undefined
         },
+        {
+            fileId: 0,
+            stokesAngle: -1,
+            stokesIntensity: -1
+        },
     ],
     VectorOverlayTileData: [
         {
@@ -176,6 +181,10 @@ let assertItem: AssertItem = {
             decimationFactor: 4,
             compressionLevel: 8,
             contourChunkSize: 100000,
+        },
+        {
+            fileId: 0,
+            referenceFileId: 0,
         }
     ],
     contourImageData: [
@@ -319,6 +328,17 @@ describe("VECTOR_OVERLAY_CONTOUR_CHANNEL: Testing the vector overlay ICD message
                         expect(eachContourImageData[0].contourSets[0].rawStartIndices[subdata]).toEqual(data.selectedStartIndicesValue[index]);
                     })
                 })
+            });
+
+            test(`(Step 4) Clear Vector Overlay and Contours, and there is no any ICD message returned:`, done => {
+                msgController.setVectorOverlayParameters(assertItem.setVectorOverlayParameters[1]);
+                msgController.setContourParameters(assertItem.setContour[1]);
+                let receiveNumberCurrent = msgController.messageReceiving();
+                setTimeout(() => {
+                    let receiveNumberLatter = msgController.messageReceiving();
+                    expect(receiveNumberCurrent).toEqual(receiveNumberLatter); //Have received number is equal during 1000 ms
+                    done();
+                }, 500)
             });
 
             // let VectorOverlayTileDataArrayChannel1 = [];
