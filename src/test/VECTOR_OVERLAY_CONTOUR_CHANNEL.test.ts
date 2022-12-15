@@ -23,6 +23,15 @@ interface IRegionHistogramDataExt extends CARTA.IRegionHistogramData {
     selectBinValue?: Number[];
 }
 
+interface IContourImageDataExt extends CARTA.IContourImageData {
+    totalCoordinate?: Number;
+    selectedCoordinateIndex?: Number[];
+    selectedCoordinateValue?: Number[];
+    totalStartIndices?: Number;
+    selectedStartIndicesIndex?:  Number[];
+    selectedStartIndicesValue?: Number[];
+}
+
 interface AssertItem {
     registerViewer: CARTA.IRegisterViewer;
     filelist: CARTA.IFileListRequest;
@@ -33,6 +42,7 @@ interface AssertItem {
     setImageChannel: CARTA.ISetImageChannels[];
     regionHistogramData: IRegionHistogramDataExt;
     setContour: CARTA.ISetContourParameters[];
+    contourImageData: IContourImageDataExt[]
     precisionDigits: number;
 };
 
@@ -160,13 +170,57 @@ let assertItem: AssertItem = {
             fileId: 0,
             referenceFileId: 0,
             imageBounds: {xMin: 0, xMax: 1049, yMin: 0, yMax: 1049},
-            levels: [0.014208443731897273, 0.028416887463794546, 0.042625331195691826, 0.05683377492758909, 0.07104221865948637],
+            levels: [0.014208443731897273, 0.042625331195691826, 0.07104221865948637],
             smoothingMode: CARTA.SmoothingMode.GaussianBlur,
             smoothingFactor: 4,
             decimationFactor: 4,
             compressionLevel: 8,
             contourChunkSize: 100000,
         }
+    ],
+    contourImageData: [
+        {
+            contourSets: [{
+                decimationFactor: 4,
+                level: 0.07104221865948637,
+                uncompressedCoordinatesSize: 1056
+            }],
+            progress: 1,
+            totalCoordinate: 301,
+            selectedCoordinateIndex: [0,50, 100, 150, 200, 250],
+            selectedCoordinateValue: [40, 130, 189, 120, 142, 243],
+            totalStartIndices: 48,
+            selectedStartIndicesIndex: [0, 20, 40],
+            selectedStartIndicesValue: [0, 118, 208]
+        },
+        {
+            contourSets: [{
+                decimationFactor: 4,
+                level: 0.0426253311956918267,
+                uncompressedCoordinatesSize: 23608
+            }],
+            progress: 1,
+            totalCoordinate: 4085,
+            selectedCoordinateIndex: [0, 500, 1000, 2500, 3500, 4000],
+            selectedCoordinateValue: [40, 191, 159, 143, 79, 196],
+            totalStartIndices: 780,
+            selectedStartIndicesIndex: [0, 50, 100, 350, 500, 750],
+            selectedStartIndicesValue: [0, 0, 10, 0, 46, 0]
+        },
+        {
+            contourSets: [{
+                decimationFactor: 4,
+                level: 0.014208443731897273,
+                uncompressedCoordinatesSize: 353960
+            }],
+            progress: 1,
+            totalCoordinate: 47845,
+            selectedCoordinateIndex: [0, 500, 1000, 7500, 10000, 13000, 22000, 35000, 41000, 45000],
+            selectedCoordinateValue: [40, 254, 82, 128, 252, 96, 166, 18, 118, 15],
+            totalStartIndices: 6396,
+            selectedStartIndicesIndex: [0, 500, 1000, 2000, 3000, 4000, 6000],
+            selectedStartIndicesValue: [0, 174, 32, 36,  108, 196, 220]
+        },
     ],
     precisionDigits: 4,
 };
@@ -247,6 +301,24 @@ describe("VECTOR_OVERLAY_CONTOUR_CHANNEL: Testing the vector overlay ICD message
                 assertItem.VectorOverlayTileData[0].selectedIntensityImageDataIndex.map((data, index) => {
                     expect(lastVectorOverlayTileDataResponse.intensityTiles[0].imageData[data]).toEqual(assertItem.VectorOverlayTileData[0].selectedIntensityImageDataValue[index])
                 });
+            });
+
+            test(`(Step 3) Set Contours parameter, Receive the Stream responses and check the correctness:`, async () => {
+                msgController.setContourParameters(assertItem.setContour[0]);
+                let ContourImageDataResponse: [] = await Stream(CARTA.ContourImageData, assertItem.setContour[0].levels.length);
+                assertItem.contourImageData.map((data)=>{
+                    let eachContourImageData: any[] = ContourImageDataResponse.filter(ResponseData => ResponseData.contourSets[0].level == data.contourSets[0].level);
+                    expect(eachContourImageData[0].progress).toEqual(data.progress);
+                    expect(eachContourImageData[0].contourSets[0].decimationFactor).toEqual(data.contourSets[0].decimationFactor);
+                    expect(eachContourImageData[0].contourSets[0].level).toEqual(data.contourSets[0].level);
+                    expect(eachContourImageData[0].contourSets[0].uncompressedCoordinatesSize).toEqual(data.contourSets[0].uncompressedCoordinatesSize);
+                    data.selectedCoordinateIndex.map((subdata, index) => {
+                        expect(eachContourImageData[0].contourSets[0].rawCoordinates[subdata]).toEqual(data.selectedCoordinateValue[index]);
+                    })
+                    data.selectedStartIndicesIndex.map((subdata, index) => {
+                        expect(eachContourImageData[0].contourSets[0].rawStartIndices[subdata]).toEqual(data.selectedStartIndicesValue[index]);
+                    })
+                })
             });
 
             // let VectorOverlayTileDataArrayChannel1 = [];
