@@ -173,7 +173,7 @@ describe("PV_GENERATOR_FITS:Testing PV generator with fits file.", () => {
                 } catch (err) {
                     expect(err).toContain(assertItem.pvCancelMessage);
                 } 
-                pvProgressReponse = await pvProgressPromise
+                pvProgressReponse = await pvProgressPromise;
             },PVTimeout);
 
             let regionHistogramData = [];
