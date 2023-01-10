@@ -143,7 +143,24 @@ describe("IMAGE_FITTING_HDF5 test: Testing Image Fitting (with and without fov) 
 
             describe(`(Case 1) Image fitting without FoV:`, ()=>{
                 test(`Send Image fitting request and match the result`, async()=>{
+                    let imageFittingProgressArray = [];
+                    let imageFittingProgressReponse : any;
+                    let imageFittingProgressPromise = new Promise((resolve)=>{
+                        msgController.fittingProgressStream.subscribe({
+                            next: (data) => {
+                                imageFittingProgressArray.push(data)
+                                if (Math.round(data.progress) > 0.99) {
+                                    resolve(imageFittingProgressArray)
+                                }
+                            },
+                        })
+                    });
+            
                     let response = await msgController.requestFitting(assertItem.fittingRequest[0]);
+                    imageFittingProgressReponse = await imageFittingProgressPromise;
+                    for (let i = 0; i < imageFittingProgressReponse.length; i++) {
+                        console.log('[Case 1] Image Fitting progress :', imageFittingProgressReponse[i].progress);
+                    }
                     
                     expect(response.resultValues[0].center.x).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].center.x, assertItem.precisionDigits);
                     expect(response.resultValues[0].center.y).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].center.y, assertItem.precisionDigits);
@@ -164,7 +181,24 @@ describe("IMAGE_FITTING_HDF5 test: Testing Image Fitting (with and without fov) 
 
             describe(`(Case 2) Image fitting with FoV:`, ()=>{
                 test(`Send Image fitting request and match the result`, async()=>{
+                    let imageFittingProgressArray2 = [];
+                    let imageFittingProgressReponse2 : any;
+                    let imageFittingProgressPromise2 = new Promise((resolve)=>{
+                        msgController.fittingProgressStream.subscribe({
+                            next: (data) => {
+                                imageFittingProgressArray2.push(data)
+                                if (Math.round(data.progress) > 0.99) {
+                                    resolve(imageFittingProgressArray2)
+                                }
+                            }
+                        })
+                    });
+
                     let response = await msgController.requestFitting(assertItem.fittingRequest[1]);
+                    imageFittingProgressReponse2 = await imageFittingProgressPromise2;
+                    for (let i = 0; i < imageFittingProgressReponse2.length; i++) {
+                        console.log('[Case 2] Image Fitting progress :', imageFittingProgressReponse2[i].progress);
+                    }
                     
                     expect(response.resultValues[0].center.x).toBeCloseTo(assertItem.fittingResponse[1].resultValues[0].center.x, assertItem.precisionDigits);
                     expect(response.resultValues[0].center.y).toBeCloseTo(assertItem.fittingResponse[1].resultValues[0].center.y, assertItem.precisionDigits);
