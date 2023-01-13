@@ -65,6 +65,15 @@ let assertItem: AssertItem = {
             },
             regionId: 0, 
             initialValues: [{amp: 10, center: {x: 320, y: 400}, fwhm: {x: 100, y: 50}, pa: 135}]
+        },
+        {
+            fileId: 0,
+            createModelImage: true,
+            createResidualImage: false,
+            fixedParams: [false, false, false, false, false, false],
+            fovInfo: null,
+            regionId: -1, 
+            initialValues: [{amp: 10, center: {x: 320, y: 400}, fwhm: {x: 100, y: 50}, pa: 135}]
         }
     ],
     fittingResponse: [
