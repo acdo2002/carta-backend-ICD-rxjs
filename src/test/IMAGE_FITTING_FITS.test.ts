@@ -74,6 +74,15 @@ let assertItem: AssertItem = {
             fovInfo: null,
             regionId: -1, 
             initialValues: [{amp: 10, center: {x: 320, y: 400}, fwhm: {x: 100, y: 50}, pa: 135}]
+        },
+        {
+            fileId: 0,
+            createModelImage: true,
+            createResidualImage: true,
+            fixedParams: [false, false, false, false, false, false],
+            fovInfo: null,
+            regionId: -1, 
+            initialValues: [{amp: 10, center: {x: 320, y: 400}, fwhm: {x: 100, y: 50}, pa: 135}]
         }
     ],
     fittingResponse: [
@@ -118,7 +127,7 @@ let assertItem: AssertItem = {
             log: 'Gaussian fitting with 1 component'
         }
     ],
-    precisionDigits: 2,
+    precisionDigits: 6,
 };
 
 let basepath: string;
@@ -227,6 +236,44 @@ describe("IMAGE_FITTING_FITS test: Testing Image Fitting (with and without fov) 
                     expect(response.resultErrors[0].fwhm.y).toBeCloseTo(assertItem.fittingResponse[1].resultErrors[0].fwhm.y, assertItem.precisionDigits);
                     expect(response.resultErrors[0].pa).toBeCloseTo(assertItem.fittingResponse[1].resultErrors[0].pa, assertItem.precisionDigits);
                     expect(response.log).toContain(assertItem.fittingResponse[1].log);
+                },imageFittingTimeout)
+            });
+
+            describe(`(Case 3) Image fitting with FoV and creating model image:`, ()=>{
+                test(`Send Image fitting request and match the result`, async()=>{
+                    let imageFittingProgressArray3 = [];
+                    let imageFittingProgressReponse3 : any;
+                    let imageFittingProgressPromise3 = new Promise((resolve)=>{
+                        msgController.fittingProgressStream.subscribe({
+                            next: (data) => {
+                                imageFittingProgressArray3.push(data)
+                                if (Math.round(data.progress) > 0.99) {
+                                    resolve(imageFittingProgressArray3)
+                                }
+                            }
+                        })
+                    });
+
+                    let response = await msgController.requestFitting(assertItem.fittingRequest[2]);
+                    imageFittingProgressReponse3 = await imageFittingProgressPromise3;
+                    for (let i = 0; i < imageFittingProgressReponse3.length; i++) {
+                        console.log('[Case 3] Image Fitting progress :', imageFittingProgressReponse3[i].progress);
+                    }
+                    
+                    expect(response.resultValues[0].center.x).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].center.x, assertItem.precisionDigits);
+                    expect(response.resultValues[0].center.y).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].center.y, assertItem.precisionDigits);
+                    expect(response.resultValues[0].amp).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].amp, assertItem.precisionDigits);
+                    expect(response.resultValues[0].fwhm.x).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].fwhm.x, assertItem.precisionDigits);
+                    expect(response.resultValues[0].fwhm.y).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].fwhm.y, assertItem.precisionDigits);
+                    expect(response.resultValues[0].pa).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].pa, assertItem.precisionDigits);
+                    expect(response.success).toEqual(assertItem.fittingResponse[0].success);
+                    expect(response.resultErrors[0].center.x).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].center.x, assertItem.precisionDigits);
+                    expect(response.resultErrors[0].center.y).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].center.y, assertItem.precisionDigits);
+                    expect(response.resultErrors[0].amp).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].amp, assertItem.precisionDigits);
+                    expect(response.resultErrors[0].fwhm.x).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].fwhm.x, assertItem.precisionDigits);
+                    expect(response.resultErrors[0].fwhm.y).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].fwhm.y, assertItem.precisionDigits);
+                    expect(response.resultErrors[0].pa).toBeCloseTo(assertItem.fittingResponse[0].resultErrors[0].pa, assertItem.precisionDigits);
+                    expect(response.log).toContain(assertItem.fittingResponse[0].log);
                 },imageFittingTimeout)
             })
         });
