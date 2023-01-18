@@ -350,7 +350,7 @@ describe("IMAGE_FITTING_FITS test: Testing Image Fitting (with and without fov) 
                 
                     expect(response.log).toContain(assertItem.fittingResponseMacOS110601[0].log);
                     expect(response.message).toContain(assertItem.fittingResponseMacOS110601[0].message);
-                } else if (Math.floor(MacOSNumber) > 12 && platformOS === 'macOS') {
+                } else if (Math.floor(MacOSNumber) >= 12 && platformOS === 'macOS') {
                     expect(response.resultValues[0].center.x).toBeCloseTo(assertItem.fittingResponseMacOS12[0].resultValues[0].center.x, assertItem.precisionDigits);
                     expect(response.resultValues[0].center.y).toBeCloseTo(assertItem.fittingResponseMacOS12[0].resultValues[0].center.y, assertItem.precisionDigits);
                     expect(response.resultValues[0].amp).toBeCloseTo(assertItem.fittingResponseMacOS12[0].resultValues[0].amp, assertItem.precisionDigits);
