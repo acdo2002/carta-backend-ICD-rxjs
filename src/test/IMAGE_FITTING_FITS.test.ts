@@ -48,6 +48,18 @@ let assertItem: AssertItem = {
             compressionType: CARTA.CompressionType.ZFP,
             tiles: [33558529, 33558528, 33562625, 33554433, 33562624, 33558530, 33554432, 33562626, 33554434, 33566721, 33566720, 33566722],
         },
+        {
+            fileId: -999,
+            compressionQuality: 11,
+            compressionType: CARTA.CompressionType.ZFP,
+            tiles: [33558529, 33558528, 33562625, 33554433, 33562624, 33554432],
+        },
+        {
+            fileId: -998,
+            compressionQuality: 11,
+            compressionType: CARTA.CompressionType.ZFP,
+            tiles: [16777216, 16781312, 16777217, 16781313],
+        }
     ],    
     setCursor: {
         fileId: 0,
@@ -138,11 +150,18 @@ let assertItem: AssertItem = {
         }
     ],
     precisionDigits: 2,
-    regionHistogramResponses: [{
-        fileId: -999,
-        progress: 1,
-        regionId: -1,
-    }]
+    regionHistogramResponses: [
+        {
+            fileId: -999,
+            progress: 1,
+            regionId: -1,
+        }, 
+        {
+            fileId: -998,
+            progress: 1,
+            regionId: -1,
+        }
+    ]
 };
 
 let basepath: string;
@@ -332,13 +351,13 @@ describe("IMAGE_FITTING_FITS test: Testing Image Fitting (with and without fov) 
 
                     imageFittingProgressReponse4 = await imageFittingProgressPromise4;
                     for (let i = 0; i < imageFittingProgressReponse4.length; i++) {
-                        console.log('[Case 3] Image Fitting progress :', imageFittingProgressReponse4[i].progress);
+                        console.log('[Case 4] Image Fitting progress :', imageFittingProgressReponse4[i].progress);
                     }
                     
-                    console.log(RegionHistogramDataResponse2)
-                    // expect(RegionHistogramDataResponse2[0].fileId).toEqual(assertItem.regionHistogramResponses[0].fileId);
-                    // expect(RegionHistogramDataResponse2[0].progress).toEqual(assertItem.regionHistogramResponses[0].progress);
-                    // expect(RegionHistogramDataResponse2[0].regionId).toEqual(assertItem.regionHistogramResponses[0].regionId);
+                    let RegionHistogramDatafileID = [];
+                    RegionHistogramDataResponse2.map(data => {RegionHistogramDatafileID.push(data.fileId)});
+                    expect(RegionHistogramDatafileID).toContain(assertItem.regionHistogramResponses[0].fileId);
+                    expect(RegionHistogramDatafileID).toContain(assertItem.regionHistogramResponses[1].fileId);
 
                     expect(response.resultValues[0].center.x).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].center.x, assertItem.precisionDigits);
                     expect(response.resultValues[0].center.y).toBeCloseTo(assertItem.fittingResponse[0].resultValues[0].center.y, assertItem.precisionDigits);
@@ -357,11 +376,47 @@ describe("IMAGE_FITTING_FITS test: Testing Image Fitting (with and without fov) 
                 },imageFittingTimeout);
 
                 test(`Request the tiles for the model image`, async () => {
-                    msgController.addRequiredTiles(assertItem.addTilesReq[1]);
-                    let RasterTileData = await Stream(CARTA.RasterTileData, assertItem.addTilesReq[1].tiles.length + 2); //RasterTileData * 1 + RasterTileSync * 2
-                    RasterTileData.map(input => {
-                        expect(input.fileId).toEqual(assertItem.addTilesReq[1].fileId);
+                    msgController.addRequiredTiles(assertItem.addTilesReq[2]);
+                    msgController.addRequiredTiles(assertItem.addTilesReq[3]);
+
+                    let RasterTileArray = [];
+                    let RasterTileSyncArray = [];
+                    let RasterTileDataPromise = new Promise((resolve) => {
+                        msgController.rasterTileStream.pipe(take(assertItem.addTilesReq[2].tiles.length + assertItem.addTilesReq[3].tiles.length)).subscribe({
+                            next: (data) => {
+                                RasterTileArray.push(data)
+                            },
+                            complete: () => {
+                                resolve(RasterTileArray)
+                            }
+                        })
                     })
+
+                    let RasterTileSyncPromise = new Promise((resolve) => {
+                        msgController.rasterTileStream.pipe(take(4)).subscribe({
+                            next: (data) => {
+                                RasterTileSyncArray.push(data)
+                            },
+                            complete: () => {
+                                resolve(RasterTileSyncArray)
+                            }
+                        })
+                    })
+
+                    let RasterTileDataResponse: Array<CARTA.RasterTileData> = await RasterTileDataPromise;
+                    let RasterTileSyncResponse = await RasterTileSyncPromise;
+                    let _countFileID999 = 0;
+                    let _countFileID998 = 0;
+
+                    RasterTileDataResponse.forEach(element => {
+                        if (element.fileId == assertItem.addTilesReq[2].fileId) {
+                            _countFileID999++
+                        } else if (element.fileId == assertItem.addTilesReq[3].fileId) {
+                            _countFileID998++
+                        }
+                    });
+                    expect(_countFileID999).toEqual(assertItem.addTilesReq[2].tiles.length);
+                    expect(_countFileID998).toEqual(assertItem.addTilesReq[3].tiles.length);
                 });
             })
         });
