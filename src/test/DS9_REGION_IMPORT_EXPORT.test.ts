@@ -55,7 +55,7 @@ let assertItem: AssertItem = {
     importRegion:
     {
         contents: [],
-        // directory: regionSubdirectory,
+        directory: regionSubdirectory,
         file: "M17_SWex_testRegions_pix.reg",
         groupId: 0,
         type: CARTA.FileType.DS9_REG,
@@ -152,12 +152,14 @@ let assertItem: AssertItem = {
     importRegion2:
         [
             {
+                directory: saveSubdirectory,
                 contents: [],
                 file: "M17_SWex_testRegions_pix_export_to_world.reg",
                 groupId: 0,
                 type: CARTA.FileType.DS9_REG,
             },
             {
+                directory: saveSubdirectory,
                 contents: [],
                 file: "M17_SWex_testRegions_pix_export_to_pix.reg",
                 groupId: 0,
@@ -217,7 +219,8 @@ describe("CASA_REGION_IMPORT_EXPORT: Testing import/export of CASA region format
                 let importRegionAck: any;
                 let importRegionAckProperties: any[];
                 test(`IMPORT_REGION_ACK should return within ${importTimeout}ms`, async () => {
-                    importRegionAck = await msgController.importRegion(basepath + "/" + regionSubdirectory,assertItem.importRegion.file, assertItem.importRegion.type, assertItem.importRegion.groupId )
+                    assertItem.importRegion.directory = basepath + "/" + regionSubdirectory
+                    importRegionAck = await msgController.importRegion(assertItem.importRegion.directory ,assertItem.importRegion.file, assertItem.importRegion.type, assertItem.importRegion.groupId )
                     importRegionAckProperties = Object.keys(importRegionAck.regions);
                     if (importRegionAck.message != '') {
                         console.warn(importRegionAck.message);
@@ -256,7 +259,7 @@ describe("CASA_REGION_IMPORT_EXPORT: Testing import/export of CASA region format
                         regionStyle.set(7, { color: "#2EE6D6", dashList: [], lineWidth: 2, name: "" });
                         regionStyle.set(8, { color: "#2EE6D6", dashList: [], lineWidth: 2, name: "" });
 
-                        assertItem.exportRegion[idxRegion].directory = saveSubdirectory; 
+                        assertItem.exportRegion[idxRegion].directory = basepath + "/" + saveSubdirectory; 
                         exportRegionAck = await msgController.exportRegion(assertItem.exportRegion[idxRegion].directory, assertItem.exportRegion[idxRegion].file, assertItem.exportRegion[idxRegion].type, assertItem.exportRegion[idxRegion].coordType, assertItem.exportRegion[idxRegion].fileId, regionStyle);
                     }, exportTimeout);
     
@@ -275,7 +278,8 @@ describe("CASA_REGION_IMPORT_EXPORT: Testing import/export of CASA region format
                     let importRegionAck: any;
                     let importRegionAckProperties: any;
                     test(`IMPORT_REGION_ACK should return within ${importTimeout}ms`, async () => {
-                        importRegionAck = await msgController.importRegion(saveSubdirectory,assertItem.importRegion2[idxRegion].file, assertItem.importRegion2[idxRegion].type, assertItem.importRegion2[idxRegion].groupId )
+                        assertItem.importRegion2[idxRegion].directory = basepath + "/" + saveSubdirectory; 
+                        importRegionAck = await msgController.importRegion(assertItem.importRegion2[idxRegion].directory, assertItem.importRegion2[idxRegion].file, assertItem.importRegion2[idxRegion].type, assertItem.importRegion2[idxRegion].groupId )
                         
                         importRegionAckProperties = Object.keys(importRegionAck.regions);
                         if (importRegionAck.message != '') {

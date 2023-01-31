@@ -5,7 +5,6 @@ import config from "./config.json";
 
 let testServerUrl = config.serverURL0;
 let testSubdirectory = config.path.QA;
-let regionSubdirectory = config.path.region;
 let saveSubdirectory = config.path.save;
 let connectTimeout = config.timeout.connection;
 let importTimeout = config.timeout.import;
@@ -330,7 +329,7 @@ describe("CASA_REGION_EXPORT test: Testing export of CASA region to a file", () 
                         regionStyle.set(15, { name: "", color: "#2EE6D6", lineWidth: 2, dashList: [] });
                         regionStyle.set(16, { name: "", color: "#2EE6D6", lineWidth: 2, dashList: [] });
 
-                        assertItem.exportRegion[idxRegion].directory = saveSubdirectory; 
+                        assertItem.exportRegion[idxRegion].directory = basepath + "/" + saveSubdirectory; 
                         exportRegionAck = await msgController.exportRegion(assertItem.exportRegion[idxRegion].directory, assertItem.exportRegion[idxRegion].file, assertItem.exportRegion[idxRegion].type, assertItem.exportRegion[idxRegion].coordType, assertItem.exportRegion[idxRegion].fileId, regionStyle);
                     }, exportTimeout);
     
@@ -349,7 +348,7 @@ describe("CASA_REGION_EXPORT test: Testing export of CASA region to a file", () 
                     let importRegionAck: any;
                     let importRegionAckProperties: any;
                     test(`IMPORT_REGION_ACK should return within ${importTimeout}ms`, async () => {
-                        assertItem.importRegion[idxRegion].directory = saveSubdirectory; 
+                        assertItem.importRegion[idxRegion].directory = basepath + "/" + saveSubdirectory; 
                         importRegionAck = await msgController.importRegion(assertItem.importRegion[idxRegion].directory, assertItem.importRegion[idxRegion].file, assertItem.importRegion[idxRegion].type, assertItem.importRegion[idxRegion].groupId)
                         importRegionAckProperties = Object.keys(importRegionAck.regions)
                     }, importTimeout);
