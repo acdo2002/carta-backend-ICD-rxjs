@@ -403,7 +403,7 @@ describe("IMAGE_FITTING_FITS test: Testing Image Fitting (with and without fov) 
                         })
                     })
 
-                    let RasterTileDataResponse: Array<CARTA.RasterTileData> = await RasterTileDataPromise;
+                    let RasterTileDataResponse: any = await RasterTileDataPromise;
                     let RasterTileSyncResponse = await RasterTileSyncPromise;
                     let _countFileID999 = 0;
                     let _countFileID998 = 0;
