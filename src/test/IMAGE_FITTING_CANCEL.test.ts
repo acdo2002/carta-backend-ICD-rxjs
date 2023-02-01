@@ -125,7 +125,7 @@ describe("IMAGE_FITTING_CANCEL test: Testing cancel function in image fitting.",
                 }, openFileTimeout);
             });
 
-            describe(`(Step 1) Request 1st image fitting, and send stop request at progress = 0.2:`, ()=>{
+            describe(`(Step 1) Request 1st image fitting, and send stop request:`, ()=>{
                 test(`Send Image fitting request and cancel image fitting after receiving 10 fittingProgressStream`, async()=>{
                     let imageFittingProgressArray = [];
                     let imageFittingProgressReponse : any;
