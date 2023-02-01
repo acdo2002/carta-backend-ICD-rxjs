@@ -155,7 +155,7 @@ describe("IMAGE_FITTING_CANCEL test: Testing cancel function in image fitting.",
             });
 
             describe(`(Step 2) Request Image fitting again and let it finish:`, ()=>{
-                test(`Send Image fitting request, let the fitting request finished and matching the result`, async()=>{
+                test(`Send Image fitting request again, let the fitting request finished and matching the result`, async()=>{
                     await sleep(3000);
             
                     let response2 = await msgController.requestFitting(assertItem.fittingRequest[0]);
